@@ -1,0 +1,60 @@
+[project]
+name = "language-flash-cards"
+version = "0.0.1"
+description = "The system of language flashcards for learning foreign words"
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "asyncpg>=0.31.0",
+    "fastapi>=0.135.2",
+    "pydantic-settings>=2.13.1",
+    "uvicorn>=0.42.0",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "ruff>=0.15.8",
+]
+
+# Ruff configs
+[tool.ruff]
+line-length = 79
+show-fixes = true
+
+extend-exclude =[
+    "alembic",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "B",    # flake8-bugbear
+    "I",    # isort
+    "ICN",  # flake8-import-conventions
+    "PGH",  # pygrep-hooks
+    "PIE",  # flake8-pie
+    "PT",   # flake8-pytest-style
+    "RET",  # flake8-return
+    "T20",  # flake8-print
+    "UP",   # pyupgrade
+    "YTT",  # flake8-2020
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+# mypy configs
+[tool.mypy]
+plugins = [
+    "pydantic.mypy"
+]
+
+[[tool.mypy.overrides]]
+module = '*.*'
+ignore_missing_imports = true
+check_untyped_defs = true
+enable_error_code = 'ignore-without-code'
