@@ -9,6 +9,7 @@ dependencies = [
     "alembic>=1.18.4",
     "asyncpg>=0.31.0",
     "dishka>=1.9.1",
+    "email-validator>=2.3.0",
     "fastapi>=0.135.2",
     "pydantic-settings>=2.13.1",
     "sqlalchemy>=2.0.48",

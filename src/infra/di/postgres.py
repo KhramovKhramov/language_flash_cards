@@ -13,7 +13,7 @@ from src.core.config import Settings
 
 
 class PostgresProvider(Provider):
-    """Провайдер подключения к PostgreSQL."""
+    """DI provider of PostgreSQL config."""
 
     scope = Scope.APP
 

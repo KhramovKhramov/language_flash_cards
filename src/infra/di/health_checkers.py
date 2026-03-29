@@ -8,7 +8,7 @@ from src.infra.health_checkers import PostgresHealthChecker
 
 
 class HealthCheckersProvider(Provider):
-    """Провайдер проверок работоспобности системы."""
+    """DI provider of system components health checkers."""
 
     scope = Scope.REQUEST
 
