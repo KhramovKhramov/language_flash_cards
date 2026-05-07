@@ -1,13 +1,13 @@
 from src.application.dto.user import UserCreateCommand
 from src.domain.entities.user import User
-from src.domain.interfaces.repositories.user import IUserRepository
+from src.domain.interfaces.uow import IUnitOfWork
 
 
 class UserCreateUseCase:
     """Creating new user."""
 
-    def __init__(self, repo: IUserRepository) -> None:
-        self._repo = repo
+    def __init__(self, uow: IUnitOfWork) -> None:
+        self._uow = uow
 
     async def execute(self, data: UserCreateCommand) -> User:
         user = User(
@@ -18,4 +18,9 @@ class UserCreateUseCase:
             email=data.email,
         )
 
-        return await self._repo.add(user)
+        async with self._uow as uow:
+            added_user = await uow.users.add(user)
+
+            await uow.commit()
+
+        return added_user

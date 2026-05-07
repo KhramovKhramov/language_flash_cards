@@ -1,5 +1,3 @@
-from collections.abc import AsyncIterable
-
 from dishka import Provider, Scope, provide
 from sqlalchemy import URL
 from sqlalchemy.ext.asyncio import (
@@ -36,11 +34,3 @@ class PostgresProvider(Provider):
         return async_sessionmaker(
             engine, class_=AsyncSession, expire_on_commit=False
         )
-
-    @provide(scope=Scope.REQUEST)
-    async def get_session(
-        self, sessionmaker: async_sessionmaker[AsyncSession]
-    ) -> AsyncIterable[AsyncSession]:
-        async with sessionmaker() as session:
-            yield session
-            await session.commit()

@@ -5,7 +5,7 @@ from dishka import Provider, Scope, provide
 from src.application.use_cases.health.health_check import HealthCheckUseCase
 from src.application.use_cases.user.user_create import UserCreateUseCase
 from src.domain.interfaces.health_checker import IComponentHealthChecker
-from src.domain.interfaces.repositories.user import IUserRepository
+from src.domain.interfaces.uow import IUnitOfWork
 
 
 class UseCasesProvider(Provider):
@@ -24,7 +24,5 @@ class UseCasesProvider(Provider):
     # User
 
     @provide
-    def get_user_create_use_case(
-        self, repo: IUserRepository
-    ) -> UserCreateUseCase:
-        return UserCreateUseCase(repo=repo)
+    def get_user_create_use_case(self, uow: IUnitOfWork) -> UserCreateUseCase:
+        return UserCreateUseCase(uow=uow)
