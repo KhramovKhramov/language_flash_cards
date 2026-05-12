@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 
 from dishka import Provider, Scope, provide
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from src.domain.interfaces.health_checker import IComponentHealthChecker
 from src.infra.health_checkers import PostgresHealthChecker
@@ -13,8 +13,10 @@ class HealthCheckersProvider(Provider):
     scope = Scope.REQUEST
 
     @provide
-    def get_pg_checker(self, session: AsyncSession) -> PostgresHealthChecker:
-        return PostgresHealthChecker(session)
+    def get_pg_checker(
+        self, sessionmaker: async_sessionmaker[AsyncSession]
+    ) -> PostgresHealthChecker:
+        return PostgresHealthChecker(session_factory=sessionmaker)
 
     @provide
     def get_all_checkers(
